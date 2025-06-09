@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Posts in {{ category.name }}{% endblock %}
+
+{% block content %}
+    <h1>Posts in Category: {{ category.name }}</h1>
+    {% for post in posts %}
+        <div class="post-list-item">
+            <h2><a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a></h2>
+            <p class="post-meta">Published on {{ post.created_on|date:"F d, Y" }} by {{ post.author }}</p>
+            <p>{{ post.content|truncatechars:200 }}</p>
+        </div>
+    {% empty %}
+        <p>No posts found in this category.</p>
+    {% endfor %}
+{% endblock %}

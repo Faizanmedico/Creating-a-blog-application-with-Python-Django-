@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+    <h1>Latest Blog Posts</h1>
+    {% for post in object_list %} {# ListView passes queryset as object_list #}
+        <div class="post-list-item">
+            <h2><a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a></h2>
+            <p class="post-meta">Published on {{ post.created_on|date:"F d, Y" }} by {{ post.author }}</p>
+            <p>{{ post.content|truncatechars:200 }}</p> {# Display first 200 characters #}
+        </div>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+
+    {# Optional: Pagination controls #}
+    {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

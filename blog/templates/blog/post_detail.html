@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="post-meta">Published on {{ post.created_on|date:"F d, Y" }} by {{ post.author }} in <a href="{% url 'blog:category_posts' post.category.name %}">{{ post.category }}</a></p>
+    <div class="post-content">
+        {{ post.content|safe }} {# 'safe' to render HTML content if applicable #}
+    </div>
+{% endblock %}
