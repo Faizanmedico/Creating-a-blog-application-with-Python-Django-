@@ -31,3 +31,7 @@ blog/
         └── category_posts.html
 blog/templates/blog/base.html (Base template for common elements):
 
+
+
+#python manage.py runserver
+
